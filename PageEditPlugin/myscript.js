@@ -22,8 +22,15 @@ function generarMenu() {
     li.addEventListener("click",eventClick,false);
     let li2 = Object.assign(document.createElement("li"),{textContent: "NoT Static",style:styleLi,id:"darkNotStatic"});
     li2.addEventListener("click",eventClick,false);
+    let li3 = Object.assign(document.createElement("li"),{style:styleLi,id:"darkColor"});
+    let divColor = Object.assign(document.createElement("div"));
+    divColor.appendChild(Object.assign(document.createElement("p"),{innerText:"change Color",id:"darkColor"}));
+    divColor.appendChild(Object.assign(document.createElement("input"),{type:"color",id:"setColor"}));
+    li3.appendChild(divColor);
+    //li3.addEventListener("click",eventClick,false);
     let ul = Object.assign(document.createElement("ul").appendChild(li),{style:"list-style: none;"});    
     ul.appendChild(li2);
+    ul.appendChild(li3);
     let menu = document.createElement("nav").appendChild(ul);
     
     let divMenu = Object.assign(document.createElement("div"),{id:"contentMenuDark",
@@ -34,19 +41,27 @@ function generarMenu() {
 }
 
 function eventClick(event) {
-    let div = window.elementSelected.target;
+    let div = window.elementSelected;
     switch (event.target.id) {
         case "darkStatic":
-             div.style.position="fixed";
+             div.target.style.position="fixed";
+             div.target.style.top= div.clientY+"px";
+             div.target.style.left= div.clientX+"px"; 
+             document.getElementById("contentMenuDark").style.display="none";
             break;
         case "darkNotStatic":
-             div.style.position="initial";
+             div.target.style.position="initial";
+             document.getElementById("contentMenuDark").style.display="none";
+            break;
+        case "darkColor":
+             div.target.style.backgroundColor = ""+document.getElementById("setColor").value+"";
+             document.getElementById("contentMenuDark").style.display="none";
             break;
     
         default:
             break;
     }
-    document.getElementById("contentMenuDark").style.display="none";
+    
 }
 
 function addEvents(element) {

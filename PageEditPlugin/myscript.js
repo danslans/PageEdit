@@ -27,14 +27,22 @@ function generarMenu() {
     divColor.appendChild(Object.assign(document.createElement("p"),{innerText:"change Color",id:"darkColor"}));
     divColor.appendChild(Object.assign(document.createElement("input"),{type:"color",id:"setColor"}));
     li3.appendChild(divColor);
+
+    let li4 = Object.assign(document.createElement("li"),{style:styleLi,id:"darkColorText"});
+    let divColorText = Object.assign(document.createElement("div"));
+    divColorText.appendChild(Object.assign(document.createElement("p"),{innerText:"change Color Text",id:"darkColorText"}));
+    divColorText.appendChild(Object.assign(document.createElement("input"),{type:"color",id:"setColorText"}));
+    li4.appendChild(divColorText);
+
     //li3.addEventListener("click",eventClick,false);
     let ul = Object.assign(document.createElement("ul").appendChild(li),{style:"list-style: none;"});    
     ul.appendChild(li2);
     ul.appendChild(li3);
+    ul.appendChild(li4);
     let menu = document.createElement("nav").appendChild(ul);
     
     let divMenu = Object.assign(document.createElement("div"),{id:"contentMenuDark",
-    style:("background-color: #9c9c9c; position: absolute;width:100px;height:50px;display:none;z-index:4")
+    style:("background-color: #9c9c9c; position: absolute;width:100px;height:50px;display:none;z-index:4000")
     });
     divMenu.appendChild(menu);
     document.body.appendChild(divMenu);
@@ -55,6 +63,10 @@ function eventClick(event) {
             break;
         case "darkColor":
              div.target.style.backgroundColor = ""+document.getElementById("setColor").value+"";
+             document.getElementById("contentMenuDark").style.display="none";
+            break;
+        case "darkColorText":
+             div.target.style.color = ""+document.getElementById("setColorText").value+"";
              document.getElementById("contentMenuDark").style.display="none";
             break;
     

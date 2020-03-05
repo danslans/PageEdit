@@ -9,10 +9,28 @@
           outline: none;
         }
       </style>
+      <script>
+        var general_att = [
+            "orientation = horizontal",
+            "align = space-between center",
+            "color={backgroundColor:#cccccc,text:white}"
+          ];
+          var general_attributes = {
+            orientation: "horizontal",
+            align: "space-between center",
+            color: "{backgroundColor:red,text:white}",
+            button:[
+            "size = {x:500,y:200}",
+            "align = center",
+            "color={backgroundColor:#cccccc,text:white}"
+            ]
+          };
+          var styles= {};
+      </script>
     </head>
     <body>
       <d-topbar size=",40">
-
+        <button general_attributes.button>Agregar usuario</button>
       </d-topbar>
       <d-principal-content>
         <d-content>
@@ -25,6 +43,10 @@
       
         </d-content>
       </d-principal-content>
+
+      <div>
+
+      </div>
       <script src="popup.js"></script>
       <script src="https://danslans.github.io/ApiDark/js/scripts.js" ></script>
     </body>

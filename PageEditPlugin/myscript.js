@@ -21,9 +21,12 @@ function generarMenu() {
     let styleLi = "background-color:#cccccc;cursor:pointer;";
     let li = Object.assign(document.createElement("li"),{textContent: "Static",style:styleLi,id:"darkStatic"});
     li.addEventListener("click",eventClick,false);
+    li.addEventListener("touchstart", eventClick, false);
+
 
     let li2 = Object.assign(document.createElement("li"),{textContent: "NoT Static",style:styleLi,id:"darkNotStatic"});
     li2.addEventListener("click",eventClick,false);
+    li2.addEventListener("touchstart", eventClick, false);
 
     let li3 = Object.assign(document.createElement("li"),{style:styleLi,id:"darkColor"});
     let divColor = Object.assign(document.createElement("div"));
@@ -39,6 +42,7 @@ function generarMenu() {
 
     let li5 = Object.assign(document.createElement("li"),{textContent:"Eliminar",style:styleLi,id:"darkDelete"});
     li5.addEventListener("click", eventDelete,false);
+    li5.addEventListener("touchstart", eventDelete, false);
 
     //li3.addEventListener("click",eventClick,false);
     let ul = Object.assign(document.createElement("ul").appendChild(li),{style:"list-style: none;"});    

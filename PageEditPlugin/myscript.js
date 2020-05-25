@@ -1,4 +1,5 @@
 this.elementSelected={};
+this.showMenuBrowser=true;
 (()=> {
     this.state= {idEdit:0};    
     chrome.storage.sync.get(window.location.hostname,page=>{
@@ -20,8 +21,10 @@ function generarMenu() {
     let styleLi = "background-color:#cccccc;cursor:pointer;";
     let li = Object.assign(document.createElement("li"),{textContent: "Static",style:styleLi,id:"darkStatic"});
     li.addEventListener("click",eventClick,false);
+
     let li2 = Object.assign(document.createElement("li"),{textContent: "NoT Static",style:styleLi,id:"darkNotStatic"});
     li2.addEventListener("click",eventClick,false);
+
     let li3 = Object.assign(document.createElement("li"),{style:styleLi,id:"darkColor"});
     let divColor = Object.assign(document.createElement("div"));
     divColor.appendChild(Object.assign(document.createElement("p"),{innerText:"change Color",id:"darkColor"}));
@@ -34,11 +37,15 @@ function generarMenu() {
     divColorText.appendChild(Object.assign(document.createElement("input"),{type:"color",id:"setColorText"}));
     li4.appendChild(divColorText);
 
+    let li5 = Object.assign(document.createElement("li"),{textContent:"Eliminar",style:styleLi,id:"darkDelete"});
+    li5.addEventListener("click", eventDelete,false);
+
     //li3.addEventListener("click",eventClick,false);
     let ul = Object.assign(document.createElement("ul").appendChild(li),{style:"list-style: none;"});    
     ul.appendChild(li2);
     ul.appendChild(li3);
     ul.appendChild(li4);
+    ul.appendChild(li5);
     let menu = document.createElement("nav").appendChild(ul);
     
     let divMenu = Object.assign(document.createElement("div"),{id:"contentMenuDark",
@@ -46,6 +53,13 @@ function generarMenu() {
     });
     divMenu.appendChild(menu);
     document.body.appendChild(divMenu);
+}
+
+function eventDelete(event) {
+    debugger
+    let div = window.elementSelected.target;
+    div.remove();
+    document.getElementById("contentMenuDark").style.display = "none";
 }
 
 function eventClick(event) {
@@ -112,17 +126,24 @@ document.addEventListener("mousemove",function(event){
 },false);
 
 
-document.addEventListener("contextmenu",(event)=>{
-    window.event.returnValue = false;
-    chrome.storage.sync.get("state",value=>{
-        if(value.state=="on"){
-            let divMenu = document.getElementById("contentMenuDark");
-            divMenu.style.top = (event.clientY+40)+"px";
-            divMenu.style.left = event.clientX+"px";
+document.addEventListener("touchend",init,false);
+
+document.addEventListener("contextmenu",init,false);
+
+
+async function init(event) {
+    window.event.returnValue = window.showMenuBrowser;
+    await chrome.storage.sync.get("state", value => {
+        let divMenu = document.getElementById("contentMenuDark");
+        if (value.state == "on") {
+            divMenu.style.top = (event.clientY + 40) + "px";
+            divMenu.style.left = event.clientX + "px";
             divMenu.style.display = "inline";
-            this.elementSelected = event;
-            
+            window.elementSelected = event;
+            window.showMenuBrowser = false;
+        } else {
+            divMenu.style.display = "none";
+            window.showMenuBrowser = true;
         }
     });
-    
-},false);
+}

@@ -40,14 +40,18 @@ function generarMenu() {
 
     let li3 = Object.assign(document.createElement("li"),{style:styleLi,id:"darkColor"});
     let divColor = Object.assign(document.createElement("div"));
-    divColor.appendChild(Object.assign(document.createElement("p"),{innerText:"change Color",id:"darkColor"}));
+    divColor.appendChild(Object.assign(document.createElement("p"), { innerText: "change Color", id: "darkColor"}));
     divColor.appendChild(Object.assign(document.createElement("input"),{type:"color",id:"setColor"}));
+    li3.addEventListener("click", eventClick, false);
+    li3.addEventListener("touchstart", eventClick, false);
     li3.appendChild(divColor);
 
     let li4 = Object.assign(document.createElement("li"),{style:styleLi,id:"darkColorText"});
     let divColorText = Object.assign(document.createElement("div"));
-    divColorText.appendChild(Object.assign(document.createElement("p"),{innerText:"change Color Text",id:"darkColorText"}));
+    divColorText.appendChild(Object.assign(document.createElement("p"), { innerText: "change Color Text",id: "darkColorText"}));
     divColorText.appendChild(Object.assign(document.createElement("input"),{type:"color",id:"setColorText"}));
+    li4.addEventListener("click", eventClick, false);
+    li4.addEventListener("touchstart", eventClick, false);
     li4.appendChild(divColorText);
 
     let li5 = Object.assign(document.createElement("li"),{style:styleLi,id:"darkDelete"});

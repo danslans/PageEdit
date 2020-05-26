@@ -3,51 +3,24 @@
     <head>
       <link rel="stylesheet" href="https://danslans.github.io/ApiDark/css/styles.css">
       <style>
-        button {
-          height: 60px;
-          width: 100px;
-          outline: none;
+        .clicked {
+          position: relative;
+          width: 100%;
+          height: 100%;
         }
       </style>
-      <script>
-        var general_att = [
-            "orientation = horizontal",
-            "align = space-between center",
-            "color={backgroundColor:#cccccc,text:white}"
-          ];
-          var general_attributes = {
-            orientation: "horizontal",
-            align: "space-between center",
-            color: "{backgroundColor:red,text:white}",
-            button:[
-            "size = {x:500,y:200}",
-            "align = center",
-            "color={backgroundColor:#cccccc,text:white}"
-            ]
-          };
-          var styles= {};
-      </script>
     </head>
     <body>
-      <d-topbar size=",40">
-        <button general_attributes.button>Agregar usuario</button>
-      </d-topbar>
-      <d-principal-content>
-        <d-content>
-          <button id="edit" styles>
-            Editar
-        </button>
-        <button id="editOff" styles>
-              Desactivar
-      </button>
-      
+      <d-principal-content general_attributes.size>
+        <d-content general_attributes.size>
+          <d-content-section size="{y:50px,padding:1px 0 0 0}" color="white" orientation="horizontal" loop="element of elements">
+            <clicked style="width: 100%;height:100% ;">
+            <div styles id="{{element.id}}"><p>{{element.text}}</p></div>
+            </clicked>
+          </d-content-section>
         </d-content>
       </d-principal-content>
-
-      <div>
-
-      </div>
+      <script src="https://danslans.github.io/ApiDark/js/scripts.js"></script>
       <script src="popup.js"></script>
-      <script src="https://danslans.github.io/ApiDark/js/scripts.js" ></script>
     </body>
   </html>

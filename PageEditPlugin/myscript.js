@@ -17,15 +17,25 @@ this.showMenuBrowser=true;
     generarMenu();
 })();
 
+function createElement(children,nameElement) {
+    let element = document.createElement(nameElement);
+    if (children) {
+        element.appendChild(children);    
+    }
+    return element;
+}
+
 function generarMenu() {
     let styleLi = "background-color:#cccccc;cursor:pointer;";
-    let li = Object.assign(document.createElement("li"),{textContent: "Static",style:styleLi,id:"darkStatic"});
+    let li = Object.assign(document.createElement("li"),{style:styleLi,id:"darkStatic"});
+    li.appendChild(createElement((Object.assign(createElement(null,"p"), { textContent: "Static" })),"div"));
     li.addEventListener("click",eventClick,false);
     li.addEventListener("touchstart", eventClick, false);
 
 
-    let li2 = Object.assign(document.createElement("li"),{textContent: "NoT Static",style:styleLi,id:"darkNotStatic"});
-    li2.addEventListener("click",eventClick,false);
+    let li2 = Object.assign(document.createElement("li"),{style:styleLi,id:"darkNotStatic"});
+    li2.appendChild(createElement((Object.assign(createElement(null, "p"), { textContent: "No Static" })), "div"));
+    li2.addEventListener("click",eventClick,false); 
     li2.addEventListener("touchstart", eventClick, false);
 
     let li3 = Object.assign(document.createElement("li"),{style:styleLi,id:"darkColor"});
@@ -40,12 +50,14 @@ function generarMenu() {
     divColorText.appendChild(Object.assign(document.createElement("input"),{type:"color",id:"setColorText"}));
     li4.appendChild(divColorText);
 
-    let li5 = Object.assign(document.createElement("li"),{textContent:"Eliminar",style:styleLi,id:"darkDelete"});
+    let li5 = Object.assign(document.createElement("li"),{style:styleLi,id:"darkDelete"});
+    li5.appendChild(createElement((Object.assign(createElement(null, "p"), { textContent: "Eliminar" })), "div"));
     li5.addEventListener("click", eventDelete,false);
     li5.addEventListener("touchstart", eventDelete, false);
 
     //li3.addEventListener("click",eventClick,false);
-    let ul = Object.assign(document.createElement("ul").appendChild(li),{style:"list-style: none;"});    
+    let ul = Object.assign(document.createElement("ul"),{style:"list-style: none;"});    
+    ul.appendChild(li);
     ul.appendChild(li2);
     ul.appendChild(li3);
     ul.appendChild(li4);

@@ -43,7 +43,13 @@ window.addEventListener("load",event=>{
             chrome.storage.sync.set({ "state": "off" });
         }, false);
         guardar.addEventListener("click", event => {
-
+            chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+                var tab = tabs[0];
+                var url = new URL(tab.url)
+                chrome.storage.sync.get(url.hostname, page => {
+                    localStorage.setItem({...page});
+                });
+            });
         });
     }
 },false);

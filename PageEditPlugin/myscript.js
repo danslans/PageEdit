@@ -6,17 +6,33 @@ this.listOfModifiedElements = new Map();
     chrome.storage.sync.get(window.location.hostname,page=>{
         if(page.hasOwnProperty(window.location.hostname)){
             console.log(page);
+            setIdElements(true,page);
         }else{
             let namePage = window.location.hostname;
             let jsonToSave ="{"+'"'+namePage+'"'+":{}}";
             chrome.storage.sync.set(JSON.parse(jsonToSave));
+            setIdElements(false);
         }
     });
+    generarMenu();
+})();
+
+
+
+function setIdElements(loadStyles,page) {
     for (const element of document.body.children) {
         addEvents(element);
     }
-    generarMenu();
-})();
+    if (loadStyles) {
+        page[window.location.hostname].forEach(styleElement => {
+            for (const key in styleElement) {
+                debugger
+                let elementSearched = document.querySelector("[idedit="+key+ "]");
+                elementSearched.style.cssText = styleElement[key].css;
+            }
+        });
+    }
+}
 
 function createElement(children,nameElement) {
     let element = document.createElement(nameElement);
@@ -29,13 +45,13 @@ function createElement(children,nameElement) {
 function generarMenu() {
     let styleLi = "background-color:#cccccc;cursor:pointer;";
     let li = Object.assign(document.createElement("li"),{style:styleLi,id:"darkStatic"});
-    li.appendChild(createElement((Object.assign(createElement(null,"p"), { textContent: "Static" })),"div"));
+    li.appendChild(createElement((Object.assign(createElement(null, "p"), { textContent: "Static", id: "darkStatic" })),"div"));
     li.addEventListener("click",eventClick,false);
     li.addEventListener("touchstart", eventClick, false);
 
 
     let li2 = Object.assign(document.createElement("li"),{style:styleLi,id:"darkNotStatic"});
-    li2.appendChild(createElement((Object.assign(createElement(null, "p"), { textContent: "No Static" })), "div"));
+    li2.appendChild(createElement((Object.assign(createElement(null, "p"), { textContent: "No Static", id: "darkNotStatic" })), "div"));
     li2.addEventListener("click",eventClick,false); 
     li2.addEventListener("touchstart", eventClick, false);
 
@@ -77,7 +93,6 @@ function generarMenu() {
 }
 
 function eventDelete(event) {
-    debugger
     let div = window.elementSelected.target;
     div.remove();
     document.getElementById("contentMenuDark").style.display = "none";
@@ -119,7 +134,6 @@ function eventClick(event) {
 
 
 function saveOnChrome() {
-    debugger
     let json = [];
     listOfModifiedElements.forEach((value, key, map) => {
         json.push(JSON.parse("{" + '"' + key + '"' + ":" + JSON.stringify(value) +"}"));
@@ -131,7 +145,7 @@ function saveOnChrome() {
 }
 
 function saveConfig(div) {
-    let object2 = Object.assign(listOfModifiedElements.get(div.target.getAttribute("idedit")), { ...div.target.style });
+    let object2 = Object.assign(listOfModifiedElements.get(div.target.getAttribute("idedit")), { css: div.target.style.cssText });
     listOfModifiedElements.set(div.target.getAttribute("idedit"), object2);
 }
 

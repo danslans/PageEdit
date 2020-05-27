@@ -1,5 +1,6 @@
 this.elementSelected={};
 this.showMenuBrowser=true;
+this.listOfModifiedElements = new Map();
 (()=> {
     this.state= {idEdit:0};    
     chrome.storage.sync.get(window.location.hostname,page=>{
@@ -84,30 +85,54 @@ function eventDelete(event) {
 
 function eventClick(event) {
     let div = window.elementSelected;
+    listOfModifiedElements.set(div.target.getAttribute("idedit"),{});
     switch (event.target.id) {
         case "darkStatic":
              div.target.style.position="fixed";
              div.target.style.top= div.clientY+"px";
              div.target.style.left= div.clientX+"px"; 
+            saveConfig(div);
              document.getElementById("contentMenuDark").style.display="none";
             break;
         case "darkNotStatic":
              div.target.style.position="initial";
+            saveConfig(div);
              document.getElementById("contentMenuDark").style.display="none";
             break;
         case "darkColor":
              div.target.style.backgroundColor = ""+document.getElementById("setColor").value+"";
+            saveConfig(div);
              document.getElementById("contentMenuDark").style.display="none";
             break;
         case "darkColorText":
              div.target.style.color = ""+document.getElementById("setColorText").value+"";
+            saveConfig(div);
              document.getElementById("contentMenuDark").style.display="none";
             break;
     
         default:
             break;
     }
+    saveOnChrome();
+}
+
+
+
+function saveOnChrome() {
+    debugger
+    let json = [];
+    listOfModifiedElements.forEach((value, key, map) => {
+        json.push(JSON.parse("{" + '"' + key + '"' + ":" + JSON.stringify(value) +"}"));
+    });
     
+    let namePage = window.location.hostname;
+    let jsonToSave = "{" + '"' + namePage + '"' + ":" + JSON.stringify(json)+"}";
+    chrome.storage.sync.set(JSON.parse(jsonToSave));
+}
+
+function saveConfig(div) {
+    let object2 = Object.assign(listOfModifiedElements.get(div.target.getAttribute("idedit")), { ...div.target.style });
+    listOfModifiedElements.set(div.target.getAttribute("idedit"), object2);
 }
 
 function addEvents(element) {

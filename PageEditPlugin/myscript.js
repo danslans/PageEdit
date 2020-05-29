@@ -26,7 +26,6 @@ function setIdElements(loadStyles,page) {
     if (loadStyles) {
         page[window.location.hostname].forEach(styleElement => {
             for (const key in styleElement) {
-                debugger
                 let elementSearched = document.querySelector("[idedit="+key+ "]");
                 elementSearched.style.cssText = styleElement[key].css;
             }

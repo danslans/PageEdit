@@ -16,10 +16,16 @@ this.functs.clicked = [
             className: "clicked",
             functions: {
                 onmousedown: event => {
-                    event.target.style.backgroundColor = "#e6e6e6"
+                    event.target.style.backgroundColor = "#e6e6e6";
                 },
                 onmouseup: event => {
-                    event.target.style.backgroundColor = "#cccccc"
+                    event.target.style.backgroundColor = "#cccccc";
+                },
+                ontouchstart: event =>{
+                    event.target.style.backgroundColor = "#e6e6e6";
+                },
+                ontouchend: event => {
+                    event.target.style.backgroundColor = "#cccccc"; 
                 }
             }
         }

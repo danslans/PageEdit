@@ -86,7 +86,7 @@ function generarMenu() {
     let menu = document.createElement("nav").appendChild(ul);
     
     let divMenu = Object.assign(document.createElement("div"),{id:"contentMenuDark",
-    style:("background-color: #9c9c9c; position: absolute;width:100px;height:50px;display:none;z-index:4000")
+        style: ("background-color: #9c9c9c; position: fixed;width:100px;height:50px;display:none;z-index:4000")
     });
     divMenu.appendChild(menu);
     document.body.appendChild(divMenu);
